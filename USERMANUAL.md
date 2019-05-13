@@ -11,10 +11,13 @@ The piStar Tool is shown with a three-part splash screen, the Menu Bar, Properti
 
 1. **File**: Where you can save and load the template, save the template as an image, and create a new blank template.
 ![File Toolbar](images/FileToolbar.PNG)
+
 2. **Add**: Where you can select the elements, links, dependencies, contributions, and refinements you want to add to the template
 ![Add Toolbar](images/AddToolbar.PNG)
+
 3. **Options**: Where you can perform privacy and visual settings, such as putting in full screen mode, making changes to the links you create, and changing the dimensions of the drawing area.
 ![Options Toolbar](images/OptionsToolbar.PNG)
+
 4. **Help**: Where you can find examples of model to base, links to research related to piStar Tool and about language i * a quick help on the tool itself.
 ![Help Toolbar](images/HelpToolbar.PNG)
 
@@ -35,14 +38,17 @@ You can split a user's actions into five action sections. File Action, Preview A
   2. Select New Model
   3. Press OK
   4. **Result**: This action will delete your current template and leave the Drawing Area blank.
+  
 * To save your model:
   1. Scroll to the Menu Bar and select File
   2. Select Save Model
   3. **Result**: This action will download a file with the .txt extension called goalModel in the default directory of your browser
+  
 * To load your model:
   1. Scroll to the Menu Bar and select File
   2. Select Load Model
   3. Click Choose File, and then click Load Model.
+  
 * To To save your model as an image:
   1. Scroll to the Menu Bar and select File
   2. Select Save Image
@@ -56,10 +62,12 @@ You can split a user's actions into five action sections. File Action, Preview A
 
 * To use de tool in fullscreen
   1. Press button F11 in keyboard
-    **Alternative**
-      1. Scroll to the Menu Bar and select Options
-      2. Click "Toggle Fullscreen"
+  
+  **Alternative**
+    1. Scroll to the Menu Bar and select Options
+    2. Click "Toggle Fullscreen"
   **Note:** Repeat to exit full screen mode
+  
 * To remove the gaps beteween the links and the elements:
   1. Scroll to the Menu Bar and select Options
   2. Click on "Pixel-perfect-links"
@@ -71,4 +79,25 @@ You can split a user's actions into five action sections. File Action, Preview A
   1. Use your brwoser zoom
 
 3. **Change Action:**
+
+* To rename an element:
+  1. Double click the element
+  2. On the Edit Name screen, enter the name you want and click OK
+  
+  **Alternative**
+    1. Double click the element
+    2. Go to the Properties Bar and rename the contents of the Name property
+* To collapse or expand an Actor, Role, or Agent:
+  1. Holding the Alt key, click the element you want to collapse or expand
+  2. **Result**: If the element is collapsed, it will expand; if the element is expanded, it will collapse
+  
+  **Alternative**
+    1. Click the element you want to collapse or expand
+    2. Go to the Properties Bar and click Collapse / Expand
+    
+* To change the size of the Drawing Area:
+  1. Scroll to the Menu Bar and select Options
+  2. Change the Diagram Size values in terms of how many pixels you want to have in height and width.
+  3. **Note**: This action may leave elements of your model covered
+
   
