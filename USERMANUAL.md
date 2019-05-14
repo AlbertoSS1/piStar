@@ -9,10 +9,10 @@ The piStar Tool is shown with a three-part splash screen, the Menu Bar, Properti
 
 **The Menu Bar is divided into four sub-areas:**
 
-1. **File**: Where you can save and load the template, save the template as an image, and create a new blank template.
+1. **File**: Where you can save and load the model, save the model as an image, and create a new blank model.
 ![File Toolbar](images/FileToolbar.PNG)
 
-2. **Add**: Where you can select the elements, links, dependencies, contributions, and refinements you want to add to the template
+2. **Add**: Where you can select the elements, links, dependencies, contributions, and refinements you want to add to the model
 ![Add Toolbar](images/AddToolbar.PNG)
 
 3. **Options**: Where you can perform privacy and visual settings, such as putting in full screen mode, making changes to the links you create, and changing the dimensions of the drawing area.
@@ -21,7 +21,7 @@ The piStar Tool is shown with a three-part splash screen, the Menu Bar, Properti
 4. **Help**: Where you can find examples of model to base, links to research related to piStar Tool and about language i * a quick help on the tool itself.
 ![Help Toolbar](images/HelpToolbar.PNG)
 
-**The Properties Bar is where the user sees and adds properties to their elements and template:**
+**The Properties Bar is where the user sees and adds properties to their elements and model:**
 ![Options Toolbar](images/PropertiesToolbar.PNG)
 
 **The Drawing Area is where the user make the model:**
@@ -37,7 +37,7 @@ You can split a user's actions into five action sections. File Action, Preview A
   1. Scroll to the Menu Bar and select File
   2. Select New Model
   3. Press OK
-  4. **Result**: This action will delete your current template and leave the Drawing Area blank.
+  4. **Result**: This action will delete your current model and leave the Drawing Area blank.
   
 * To save your model:
   1. Scroll to the Menu Bar and select File
@@ -56,7 +56,7 @@ You can split a user's actions into five action sections. File Action, Preview A
   4. If desired, check the *checkbox* to apply the "*pixel-perfect-links*" effect, which adjusts the image by eliminating gaps between links and elements
   5. If desired, click on SVG to choose the format you want to save the image, being possible to choose between SVG and PNG.
   6. Click Save Image
-  7. **Result**: This action will download your template in the format chosen in your browser's default directory
+  7. **Result**: This action will download your model in the format chosen in your browser's default directory
 
 2. **View Action:**
 
