@@ -178,7 +178,9 @@ var ui = function() {
                 }
 
             }
-        }
+        },
+        collectActionData: function(a,b,c) {console.log(a,b,c); /* empty function added when deploying */ },
+        collectErrorData: function() { /* empty function added when deploying */ }
     };
 }();
 
@@ -611,6 +613,12 @@ ui.addElementOnPaper = function (options) {
 
         if (isValid.isValid) {
             var newActor = istar['add' + currentAddingElement]('', options);
+            if (istar.metamodel.nodes[currentAddingElement] && istar.metamodel.nodes[currentAddingElement].customProperties) {
+                newActor.prop('customProperties', istar.metamodel.nodes[currentAddingElement].customProperties);
+            }
+            else if (istar.metamodel.containers[currentAddingElement] && istar.metamodel.containers[currentAddingElement].customProperties) {
+                newActor.prop('customProperties', istar.metamodel.containers[currentAddingElement].customProperties);
+            }
             newActor.prop('customProperties/Description', '');
             ui.selectCell(newActor);
         }
@@ -648,6 +656,10 @@ ui.addElementOnContainer = function (cellView, options) {
             options.position.y -= bbox.height/2;
 
             var element = ui.addNodeInPlace(cellView.model, istar['add' + currentAddingElement], options);
+
+            if (istar.metamodel.nodes[currentAddingElement].customProperties) {
+                element.prop('customProperties', istar.metamodel.nodes[currentAddingElement].customProperties);
+            }
             element.prop('customProperties/Description', '');
             ui.selectCell(element);
         }
@@ -1024,6 +1036,7 @@ ui.setupLoadExampleButton = function () {
             $('#modal-examples').modal('hide');
         }, 100);
 
+        ui.collectActionData('click', 'load example', modelToLoad);
     });
 };
 
@@ -1123,15 +1136,20 @@ $('#menu-button-toggle-fullscreen').click(function () {
 $('#menu-button-straighten-links').click(function () {
     'use strict';
 
-    if (confirm("ATTENTION! This action will remove all vertices you may have added to the links in this model. Are you sure you want to do this?")) {
-        var selectedCell = ui.getSelectedCells()[0];
-        _.forEach(istar.getLinks(), function (link) {
-            link.vertices([]);
-        });
+    ui.confirm({
+        message: 'ATTENTION! This action will remove all vertices you may have added to the links in this model. Are you sure you want to do this?',
+        callback: function (value) {
+            if (value) {
+                var selectedCell = ui.getSelectedCells()[0];
+                _.forEach(istar.getLinks(), function (link) {
+                    link.vertices([]);
+                });
 
-        //restore selection to the element that was selected (if any) when the action started
-        ui.selectCell(selectedCell);
-    }
+                //restore selection to the element that was selected (if any) when the action started
+                ui.selectCell(selectedCell);
+            }
+        }
+    });
 });
 
 ui.changeAddMenuStatus = function (text) {
@@ -1328,20 +1346,25 @@ ui.alert = function (body, title) {
         title: title,
         message: body
     });
+};
 
-    // //set the body of the modal
-    // $('#body-alert-modal').html(body);
-    //
-    // //set the title of the modal
-    // if (title) {
-    //     $('#label-alert-modal').html(title);
-    // }
-    // else {
-    //     $('#label-alert-modal').html('alert');
-    // }
-    //
-    // $('#modal-alert').modal('show');
-    // $('#close-button-alert-modal').focus();
+ui.confirm = function (options) {
+    'use strict';
+    //change state to prevent accidental deletes
+    ui.states.editor.transitionTo(ui.states.editor.EDITING_TEXT);
+
+    var callback = options.callback;
+    options.callback = function (value) {
+        //change state back to VIEWING after the prompt is dismissed
+        ui.states.editor.transitionTo(ui.states.editor.VIEWING);
+        callback(value);
+    };
+    options.swapButtonOrder = true;
+    bootbox.confirm(options);
+    // .on('shown.bs.modal', function(e){
+    //     Automatically select the content of the input, so that the user doesn't have to
+    // $(this).find('input').select();
+    // });
 };
 
 ui.prompt = function (options) {
@@ -1372,6 +1395,7 @@ ui.displayInvalidLinkMessage = function (message) {
     else {
         ui.alert('INVALID: Sorry, but this link you are trying to create is invalid');
     }
+    ui.collectErrorData('error');
 };
 
 ui.displayInvalidModelMessage = function (messages) {
@@ -1398,10 +1422,14 @@ istar.displayInvalidModelMessages = ui.displayInvalidModelMessage;
 $('#menu-button-new-model').click(function () {
     'use strict';
 
-    var confirmed = confirm('Are you sure you want to create a new model and delete the current model?');
-    if (confirmed) {
-        istar.clearModel();
-    }
+    ui.confirm({
+        message: 'Are you sure you want to create a new model and delete the current model?',
+        callback: function (result) {
+            if (result === true) {
+                istar.clearModel();
+            }
+        }
+    });
 });
 
 ui.changeDependencyLinksOpacity = function (dependumOpacity, linkOpacity) {
