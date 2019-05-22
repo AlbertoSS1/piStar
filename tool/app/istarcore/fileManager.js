@@ -102,7 +102,7 @@ istar.fileManager = function() {
                 'dependencies': [],
                 'links': [],
                 'display': {},
-                'tool': 'pistar.2.0.0a',
+                'tool': 'pistar.2.0.0',
                 'istar': '2.0',
                 'saveDate': date,
                 'diagram': diagram
@@ -187,8 +187,9 @@ istar.fileManager = function() {
             });
             _.forEach(istar.graph.getLinks(), function (link) {
                 var linkJSON = linkToJSON(link);
-                if (link.isContributionLink()) {
-                    linkJSON.label = link.prop('value');//link.attributes.labels[0].attrs.text.text;
+                var typeName = link.prop('type');
+                if (istar.metamodel.nodeLinks[typeName] && istar.metamodel.nodeLinks[typeName].changeableLabel) {
+                    linkJSON.label = link.prop('value');
                 }
 
                 var vertices = link.get('vertices');
@@ -480,7 +481,8 @@ istar.fileManager = function() {
                         if (linkJSON.customProperties) {
                             newLink.prop('customProperties', linkJSON.customProperties);
                         }
-                        if (typeNameWithoutPrefix === 'ContributionLink') {
+                        var shapeObject = new istar.metamodel.nodeLinks[typeNameWithoutPrefix].shapeObject();
+                        if (shapeObject.attr('smooth')) {
                             newLink.on('change:vertices', ui._toggleSmoothness);
                         }
                         return newLink;
@@ -506,7 +508,7 @@ istar.fileManager = function() {
             function isDependencyLink (linkJSON) {
                 var result = false;
                 if (linkJSON.id && linkJSON.type) {
-                    if (linkJSON.type === 'istar.DependencyLink') {
+                    if (linkJSON.type.includes('DependencyLink')) {
                         result = true;
                     }
                 }
