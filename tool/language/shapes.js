@@ -234,8 +234,9 @@ joint.shapes.istar.Hazard = joint.shapes.basic.Rect.extend({
             },
             text: {
                 'font-size': 12,
+				fill: 'white',
                 'font-weight': 'bold',
-                text: 'Goal'
+                text: 'Hazard'
             }
         }
     }, joint.shapes.basic.Rect.prototype.defaults)
@@ -259,7 +260,7 @@ joint.shapes.istar.SafetyGoal = joint.shapes.basic.Rect.extend({
             text: {
                 'font-size': 12,
                 'font-weight': 'bold',
-                text: 'Goal'
+                text: 'SafetyGoal'
             }
         }
     }, joint.shapes.basic.Rect.prototype.defaults)

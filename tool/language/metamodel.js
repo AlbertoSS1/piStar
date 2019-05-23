@@ -85,9 +85,12 @@ istar.metamodel = {
             "canBeOnPaper": false
         },
 		"SafetyGoal": {
-            "canBeInnerElement": true,
+			"canBeInnerElement": true,
             "canBeDependum": false,
-            "canBeOnPaper": false
+            "canBeOnPaper": false,
+			"customProperties": {
+                "accidentImpactLevel": "",
+            }
         },
 		"SafetyTask": {
             "canBeInnerElement": true,
