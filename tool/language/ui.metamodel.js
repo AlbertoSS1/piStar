@@ -74,8 +74,8 @@ ui.setupMetamodelUI = function () {
         istar.metamodel.nodeLinks.QualificationLink.buttonTooltip = 'Add Qualification link';
         istar.metamodel.nodeLinks.QualificationLink.buttonStatusText = 'Adding <b>Qualification</b> link: click on the Quality and on the element it qualifies (Goal, Task or Resource).';
     }
-
-    if (istar.metamodel.nodeLinks.ContributionLink) {
+	
+	if (istar.metamodel.nodeLinks.ContributionLink) {
         istar.metamodel.nodeLinks.ContributionLink.buttonLabel = ['Contribution', 'Make (++)', 'Help (+)', 'Hurt (-)', 'Break (--)'];
         istar.metamodel.nodeLinks.ContributionLink.buttonTooltip = [
             'Add Contribution link (Make, Help, Hurt or Break',
@@ -91,8 +91,9 @@ ui.setupMetamodelUI = function () {
             'Adding <b>Break (--) Contribution</b> link: click first on an element and then on the Quality it contributes to'];
     }
 	
-	 if (istar.metamodel.nodeLinks.ObstructLink) {
-        istar.metamodel.nodeLinks.ObstructLink.buttonLabel = ['ObstructLink'];
+	
+	if (istar.metamodel.nodeLinks.ObstructLink) {
+        istar.metamodel.nodeLinks.ObstructLink.buttonLabel = ['Obstruct'];
 		istar.metamodel.nodeLinks.ContributionLink.buttonTooltip = ['Add ObstructLink'];
         istar.metamodel.nodeLinks.ObstructLink.buttonStatusText = [
 			'',

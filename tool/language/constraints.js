@@ -218,7 +218,22 @@ istar.metamodel.nodeLinks.AndRefinementLink.isValid = function (source, target) 
 		isValid = false
 		result.message = 'the target of an AND-refinement link in a SafetyGoal must be a SafetyGoal or a Goal'
 	}
-	if ( isValid && (source.isHazard() || source.isSafetyTask()) && !target.isHazard() ){
+	if (isValid && source.isSafetyTask() && (istar.isElementSourceOfType(target, 'ObstructLink'))){
+		isValid = false
+		result.message = 'only hazard leafs can be associated with safety strategies'
+	}
+
+	if (isValid && istar.isElementSourceOfType(source, 'ObstructLink') ){
+		isValid = false
+		result.message = 'A Hazard can not be a root and a leaf same time'
+	}
+	
+	if (isValid && (istar.isElementTargetOfType(target, 'ObstructLink') )){
+		isValid = false
+		result.message = 'A SafetyGoal can not be refined by both elements (Hazard and SafetyGoal) at the same time'
+	}
+	
+	if ( isValid && (source.isHazard() || source.isSafetyTask()) && !(target.isHazard() || target.isSafetyTask())){
 		isValid = false
 		result.message  = 'the target of a AND-refinement link in a Hazard must be a Hazard or a SafetyTask'
 	}
@@ -287,7 +302,21 @@ istar.metamodel.nodeLinks.OrRefinementLink.isValid = function (source, target) {
 		isValid = false
 		result.message = 'the target of an OR-refinement link in a SafetyGoal must be a SafetyGoal or a Goal'
 	}
-	if ( isValid && (source.isHazard() || source.isSafetyTask()) && !target.isHazard() ){
+	if (isValid && source.isSafetyTask() && (istar.isElementSourceOfType(target, 'ObstructLink'))){
+		isValid = false
+		result.message = 'only hazard leafs can be associated with safety strategies'
+	}
+	
+	if (isValid && istar.isElementSourceOfType(source, 'ObstructLink') ){
+		isValid = false
+		result.message = 'A Hazard can not be a root and a leaf same time'
+	}
+	
+	if (isValid && (istar.isElementTargetOfType(target, 'ObstructLink') )){
+		isValid = false
+		result.message = 'A SafetyGoal can not be refined by both elements (Hazard and SafetyGoal) at the same time'
+	}
+	if ( isValid && (source.isHazard() || source.isSafetyTask()) && !(target.isHazard() || target.isSafetyTask() )){
 		isValid = false
 		result.message  = 'the target of a OR-refinement link in a Hazard must be a Hazard or a SafetyTask'
 	}
@@ -318,7 +347,7 @@ istar.metamodel.nodeLinks.OrRefinementLink.isValid = function (source, target) {
             '. Instead, you can try to move the dependency to the sub-element, as shown in the example below.' +
             '<br><br><img src="language/images/errors/refinementToDependerELement.svg" alt="You cannot add a Refinement link targeting a Depender Element"/>';
     }
-    if ( isValid && istar.isElementTargetOfType(target, 'AndRefinementLink')) {
+    if ( isValid && (istar.isElementTargetOfType(target, 'AndRefinementLink'))) {
         isValid = false;
         result.message = 'you cannot mix OR-refinements with AND-refinements targeting the same element ' +
             '(iStar 2.0 Guide, Page 10).<br><br>' +
@@ -340,14 +369,21 @@ istar.metamodel.nodeLinks.NeededByLink.isValid = function (source, target) {
 
     var result = {};
     var isValid = true;
+	
     if ( !(source.isResource() || source.isSafetyResource()) ) {
         isValid = false;
         result.message = 'the source of a Needed-By link must be a Resource or SafetyResource';
     }
-	if ( isValid && source.isSafetyResource() && !(target.isTask() || target.isSafetyTask() || target.isHazard())){
+	if ( isValid && source.isSafetyResource() && !(target.isSafetyTask() || target.isHazard() || target.isTask())){
 		isValid = false;
-        result.message = 'the target of a Needed-By link in a SafetyResource must be a Hazard or a SafetyTask or a Task';
+        result.message = 'the target of a Needed-By link in a SafetyResource must be a Hazard or a SafetyTask';
 	}
+
+	if (isValid && (istar.isElementSourceOfType(target, 'ObstructLink'))){
+		isValid = false
+		result.message = 'only hazard leafs can be associated with safety strategies'
+	}
+	
     if ( isValid && source.isResource() && !target.isTask() ) {
         isValid = false;
         result.message = 'the target of a Needed-By link must be a Task (iStar 2.0 Guide, Table 1)';
@@ -389,7 +425,7 @@ istar.metamodel.nodeLinks.ContributionLink.isValid = function (source, target) {
 
     var result = {};
     var isValid = true;
-    if ( !(source.isGoal() || source.isQuality() || source.isTask() || source.isResource()) ) {
+    if ( !(source.isGoal() || source.isQuality() || source.isTask() || source.isResource() || source.isSafetyResource() || source.isSafetyTask()) ) {
         isValid = false;
         result.message = 'the source of a Contribution link must be a Goal, a Quality, a Task or a Resource (iStar 2.0 Guide, Table 1)';
     }
@@ -447,7 +483,7 @@ istar.metamodel.nodeLinks.QualificationLink.isValid = function (source, target) 
         isValid = false;
         result.message = 'the source of a Qualification link must be a Quality (iStar 2.0 Guide, Table 1)';
     }
-    if ( isValid && !(target.isGoal() || target.isTask() || target.isResource()) ) {
+    if ( isValid && !(target.isGoal() || target.isTask() || target.isResource() || target.isSafetyResource() || target.isSafetyTask()) ) {
         isValid = false;
         result.message = 'the target of a Qualification link must be a Goal, a Task or a Resource (iStar 2.0 Guide, Table 1)';
     }
@@ -489,6 +525,16 @@ istar.metamodel.nodeLinks.ObstructLink.isValid = function (source, target) {
 		isValid = false
 		result.message = 'the target of an Obstruct-refinement link must be a SafetyGoal'
 	}
+	if (isValid && (istar.isElementSourceOfType(source, 'OrRefinementLink') || istar.isElementSourceOfType(source, 'AndRefinementLink')) ){
+		isValid = false
+		result.message = 'A Hazard can not be a root and a leaf same time'
+	}
+	
+	if (isValid && ( (istar.isElementTargetOfType(target, 'OrRefinementLink')) || (istar.isElementTargetOfType(target, 'AndRefinementLink')) )){
+		isValid = false
+		result.message = 'A SafetyGoal can not be refined by both elements (Hazard and SafetyGoal) at the same time'
+	}
+	
     if ( isValid && (source === target) ) {
         isValid = false;
         result.message = 'you cannot make an Obstruct-refinement link from an element onto itself';
