@@ -374,9 +374,9 @@ istar.metamodel.nodeLinks.NeededByLink.isValid = function (source, target) {
         isValid = false;
         result.message = 'the source of a Needed-By link must be a Resource or SafetyResource';
     }
-	if ( isValid && source.isSafetyResource() && !(target.isSafetyTask() || target.isHazard() || target.isTask())){
+	if ( isValid && source.isSafetyResource() && !(target.isSafetyTask() || target.isTask())){
 		isValid = false;
-        result.message = 'the target of a Needed-By link in a SafetyResource must be a Hazard or a SafetyTask';
+        result.message = 'the target of a Needed-By link in a SafetyResource must be a Task or a SafetyTask';
 	}
 
 	if (isValid && (istar.isElementTargetOfType(target, 'OrRefinementLink') || istar.isElementTargetOfType(target, 'AndRefinementLink'))){

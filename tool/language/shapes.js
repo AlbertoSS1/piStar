@@ -218,7 +218,7 @@ joint.shapes.istar.Task = joint.shapes.basic.Polygon.extend({
 });
 
 joint.shapes.istar.Hazard = joint.shapes.basic.Rect.extend({
-    markup: '<g class="scalable"><rect class="element"/></g><text class="content"/>',
+    markup: '<g class="scalable"><rect class="element"/><text class="stereotype"/></g><text class="content"/>',
     defaults: joint.util.deepSupplement({
         type: 'Hazard',
         size: {width: 90, height: 35},
@@ -232,6 +232,18 @@ joint.shapes.istar.Hazard = joint.shapes.basic.Rect.extend({
                 'vector-effect': 'non-scaling-stroke', /* prevents stroke distortion when the element is resized */
                 width: 130
             },
+			'.stereotype': {
+                fill: 'white',
+                'font-family': 'Arial, helvetica, sans-serif',
+                'font-size': 12,
+                'font-style': 'italic',
+                ref: '.content',//makes the position of the text relative to content label
+                'ref-x': 0.5,
+                'ref-y': -5,
+                // text: '<<ElementType>>',
+                'text-anchor': 'middle',
+                'y-alignment': 'middle'
+            },
             text: {
                 'font-size': 12,
 				fill: 'white',
@@ -243,7 +255,7 @@ joint.shapes.istar.Hazard = joint.shapes.basic.Rect.extend({
 });
 
 joint.shapes.istar.SafetyGoal = joint.shapes.basic.Rect.extend({
-    markup: '<g class="scalable"><rect class="element"/></g><text class="content"/>',
+    markup: '<g class="scalable"><rect class="element"/><text class="stereotype"/></g><text class="content"/>',
     defaults: joint.util.deepSupplement({
         type: 'SafetyGoal',
         size: {width: 90, height: 35},
@@ -257,6 +269,18 @@ joint.shapes.istar.SafetyGoal = joint.shapes.basic.Rect.extend({
                 'vector-effect': 'non-scaling-stroke', /* prevents stroke distortion when the element is resized */
                 width: 130
             },
+			'.stereotype': {
+                fill: 'black',
+                'font-family': 'Arial, helvetica, sans-serif',
+                'font-size': 12,
+                'font-style': 'italic',
+                ref: '.content',//makes the position of the text relative to content label
+                'ref-x': 0.5,
+                'ref-y': -5,
+                // text: '<<ElementType>>',
+                'text-anchor': 'middle',
+                'y-alignment': 'middle'
+            },
             text: {
                 'font-size': 12,
                 'font-weight': 'bold',
@@ -267,7 +291,7 @@ joint.shapes.istar.SafetyGoal = joint.shapes.basic.Rect.extend({
 });
 
 joint.shapes.istar.SafetyResource = joint.shapes.basic.Rect.extend({
-    markup: '<g class="scalable"><rect class="element"/></g><text class="content"/>',
+    markup: '<g class="scalable"><rect class="element"/><text class="stereotype"/></g><text class="content"/>',
     defaults: joint.util.deepSupplement({
         type: 'SafetyResource',
         size: {width: 95, height: 40},
@@ -281,6 +305,18 @@ joint.shapes.istar.SafetyResource = joint.shapes.basic.Rect.extend({
                 'vector-effect': 'non-scaling-stroke', /* prevents stroke distortion when the element is resized */
                 width: 130
             },
+			'.stereotype': {
+                fill: 'black',
+                'font-family': 'Arial, helvetica, sans-serif',
+                'font-size': 12,
+                'font-style': 'italic',
+                ref: '.content',//makes the position of the text relative to content label
+                'ref-x': 0.5,
+                'ref-y': -6,
+                // text: '<<ElementType>>',
+                'text-anchor': 'middle',
+                'y-alignment': 'middle'
+            },
             text: {
                 'font-size': 12,
                 'font-weight': 'bold',
@@ -291,7 +327,7 @@ joint.shapes.istar.SafetyResource = joint.shapes.basic.Rect.extend({
 });
 
 joint.shapes.istar.SafetyTask = joint.shapes.basic.Polygon.extend({
-    markup: '<g class="scalable"><polygon class="element"/></g><text class="content"/>',
+    markup: '<g class="scalable"><polygon class="element"/><text class="stereotype"/></g><text class="content"/>',
     defaults: joint.util.deepSupplement({
         type: 'SafetyTask',
         size: {width: 95, height: 36},
@@ -304,6 +340,18 @@ joint.shapes.istar.SafetyTask = joint.shapes.basic.Polygon.extend({
                 'stroke-width': 2,
                 'vector-effect': 'non-scaling-stroke', /* prevents stroke distortion when the element is resized */
                 width: 130
+            },
+			'.stereotype': {
+                fill: 'black',
+                'font-family': 'Arial, helvetica, sans-serif',
+                'font-size': 12,
+                'font-style': 'italic',
+                ref: '.element',//makes the position of the text relative to content label
+                'ref-x': 0.5,
+                'ref-y': -12,
+                // text: '<<ElementType>>',
+                'text-anchor': 'middle',
+                'y-alignment': 'middle'
             },
             text: {
                 text: 'SafetyTask',
