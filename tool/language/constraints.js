@@ -218,7 +218,7 @@ istar.metamodel.nodeLinks.AndRefinementLink.isValid = function (source, target) 
 		isValid = false
 		result.message = 'the target of an AND-refinement link in a SafetyGoal must be a SafetyGoal or a Goal'
 	}
-	if (isValid && source.isSafetyTask() && (istar.isElementTargetOfType(target, 'OrRefinementLink') || istar.isElementTargetOfType(target, 'AndRefinementLink'))){
+	if (isValid && source.isSafetyTask() && (istar.isElementSourceOfType(target, 'ObstructLink') && istar.isElementTargetOfType(target, 'OrRefinementLink') )){
 		isValid = false
 		result.message = 'only hazard leafs can be associated with safety strategies'
 	}
@@ -302,7 +302,7 @@ istar.metamodel.nodeLinks.OrRefinementLink.isValid = function (source, target) {
 		isValid = false
 		result.message = 'the target of an OR-refinement link in a SafetyGoal must be a SafetyGoal or a Goal'
 	}
-	if (isValid && source.isSafetyTask() && (istar.isElementTargetOfType(target, 'OrRefinementLink') || istar.isElementTargetOfType(target, 'AndRefinementLink') )){
+	if (isValid && source.isSafetyTask() && (istar.isElementSourceOfType(target, 'ObstructLink') && istar.isElementTargetOfType(target, 'OrRefinementLink') )){
 		isValid = false
 		result.message = 'only hazard leafs can be associated with safety strategies'
 	}
@@ -377,11 +377,6 @@ istar.metamodel.nodeLinks.NeededByLink.isValid = function (source, target) {
 	if ( isValid && source.isSafetyResource() && !(target.isSafetyTask() || target.isTask())){
 		isValid = false;
         result.message = 'the target of a Needed-By link in a SafetyResource must be a Task or a SafetyTask';
-	}
-
-	if (isValid && (istar.isElementTargetOfType(target, 'OrRefinementLink') || istar.isElementTargetOfType(target, 'AndRefinementLink'))){
-		isValid = false
-		result.message = 'only hazard leafs can be associated with safety strategies'
 	}
 	
     if ( isValid && source.isResource() && !target.isTask() ) {
